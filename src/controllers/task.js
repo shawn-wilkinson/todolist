@@ -41,8 +41,10 @@ router.post('/:id/complete', (req, res) => {
 });
 
 router.post('/:id/delete', (req, res) => {
-  // delete the task
-  res.render('tasks/tasks');
+  const id = req.params.id;
+  Task.remove({ _id: id }, () => {
+    res.redirect('/tasks');
+  });
 });
 
 router.post('/:id/edit', (req, res) => {

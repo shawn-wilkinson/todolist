@@ -8,6 +8,7 @@ block content
       th Category
       th Priority
       th Created At
+      th Delete
     each list in lists
       if list.priority === 3
         - color = priorities[0].color
@@ -31,3 +32,5 @@ block content
         td= list.category
         td= level
         td= list.createdAt
+        td: form(method='post', action='/tasks/'+list.id+'/delete')
+          button(type='submit').fa.fa-trash-o
