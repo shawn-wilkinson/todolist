@@ -1,0 +1,33 @@
+extends ../shared/template
+block content
+  table.table
+    tr
+      th Name
+      th Due
+      th Completed
+      th Category
+      th Priority
+      th Created At
+    each list in lists
+      if list.priority === 3
+        - color = priorities[0].color
+        - level = 'High'
+      else if list.priority === 2
+        - color = priorities[1].color
+        - level = 'Med'
+      else
+        - color = priorities[2].color
+        - level = 'Low'
+      tr(bgcolor= color)
+        td= list.name
+        td= list.due
+        //- form(method='post' action='/aliens/delete/' + alien.id)
+        //-       button.btn.btn-primary(type='submit') Delete
+        td: form(method='post', action='/tasks/'+list.id+'/complete')
+            if list.completed
+                button(type='submit').fa.fa-check-square-o
+            else
+                button(type='submit').fa.fa-square-o
+        td= list.category
+        td= level
+        td= list.createdAt
